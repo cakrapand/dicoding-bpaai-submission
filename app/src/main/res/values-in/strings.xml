@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">StoryApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="login">Masuk</string>
+    <string name="email">Email</string>
+    <string name="password">Kata Sandi</string>
+    <string name="register">Daftar</string>
+    <string name="name">Nama</string>
+    <string name="appwidget_text">Cerita</string>
+    <string name="add_widget">Tambah widget</string>
+    <string name="app_widget_description">Ini adalah deskripsi widget</string>
+    <string name="empty_text">Data Kosong</string>
+    <string name="camera">Kamera</string>
+    <string name="gallery">Galeri</string>
+    <string name="upload">Unggah</string>
+    <string name="description">Deskripsi</string>
+    <string name="logout">Keluar</string>
+    <string name="add_story">Tambah Cerita</string>
+    <string name="settings">Pengaturan</string>
+    <string name="email_blank">Email tidak boleh kosong</string>
+    <string name="email_invalid">Email tidak valid</string>
+    <string name="password_invalid">Password minimal 6 karatker</string>
+    <string name="register_invalid">Email atau password tidak valid</string>
+    <string name="logged_out">Keluar</string>
+    <string name="logout_error">Gagal keluar</string>
+    <string name="login_success">Behasil masuk</string>
+    <string name="register_success">Berhasil daftar</string>
+    <string name="story_invalid">Story dan deskripsi tidak boleh kosong</string>
+    <string name="allow_permission">Tolong berikan izin kamera di settings</string>
+</resources>
