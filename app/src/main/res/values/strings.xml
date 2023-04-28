@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">StoryApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="register">Register</string>
+    <string name="name">Name</string>
+    <string name="appwidget_text">Story</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
+    <string name="empty_text">No Data</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="upload">Upload</string>
+    <string name="description">Description</string>
+    <string name="logout">Logout</string>
+    <string name="add_story">Add Story</string>
+    <string name="settings">Settings</string>
+    <string name="email_blank">Email can\'t be blank</string>
+    <string name="email_invalid">Invalid email address</string>
+    <string name="password_invalid">Password must be at least 6 characters</string>
+    <string name="register_invalid">Invalid email or password</string>
+    <string name="logged_out">Logged Out</string>
+    <string name="logout_error">Logout error</string>
+    <string name="login_success">Login Success</string>
+    <string name="register_success">Register Success</string>
+    <string name="story_invalid">Story or description cant be blank</string>
+    <string name="allow_permission">Please allow camera permission on settings</string>
 </resources>
