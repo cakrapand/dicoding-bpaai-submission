@@ -40,11 +40,7 @@ class EmailEditText : AppCompatEditText {
 
             }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(s.isNullOrEmpty()){
-                    error = context.getString(R.string.email_blank)
-                }
-
-                if(!Patterns.EMAIL_ADDRESS.matcher(s).matches()){
+                if(!s.isNullOrEmpty() && !Patterns.EMAIL_ADDRESS.matcher(s).matches()){
                     error = context.getString(R.string.email_invalid)
                 }
             }

@@ -1,5 +1,7 @@
 package com.example.storyapp.ui.auth
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.os.Bundle
 import android.util.Patterns
@@ -70,6 +72,7 @@ class RegisterFragment : Fragment() {
             }
         }
         binding.btnMoveLogin.setOnClickListener { moveToLogin()}
+        playAnimation()
     }
 
     fun moveToLogin(){
@@ -78,6 +81,30 @@ class RegisterFragment : Fragment() {
         mFragmentManager.popBackStack()
         mFragmentManager.commit {
             replace(R.id.frame_container, mLoginFragment, LoginFragment::class.java.simpleName)
+        }
+    }
+
+    private fun playAnimation(){
+//        ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X, -30f, 30f).apply {
+//            duration = 6000
+//            repeatCount = ObjectAnimator.INFINITE
+//            repeatMode = ObjectAnimator.REVERSE
+//        }.start()
+
+        val tvRegister = ObjectAnimator.ofFloat(binding.tvRegister, View.ALPHA, 1f).setDuration(500)
+        val edRegisterName = ObjectAnimator.ofFloat(binding.edRegisterName, View.ALPHA, 1f).setDuration(500)
+        val edRegisterEmail = ObjectAnimator.ofFloat(binding.edRegisterEmail, View.ALPHA, 1f).setDuration(500)
+        val edRegisterPassword = ObjectAnimator.ofFloat(binding.edRegisterPassword, View.ALPHA, 1f).setDuration(500)
+        val btnMoveLogin = ObjectAnimator.ofFloat(binding.btnMoveLogin, View.ALPHA, 1f).setDuration(500)
+        val btnRegister = ObjectAnimator.ofFloat(binding.btnRegister, View.ALPHA, 1f).setDuration(500)
+
+        val together = AnimatorSet().apply {
+            playTogether(btnMoveLogin, btnRegister)
+        }
+
+        AnimatorSet().apply {
+            playSequentially(tvRegister, edRegisterName, edRegisterEmail, edRegisterPassword, together)
+            start()
         }
     }
 

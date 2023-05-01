@@ -16,6 +16,7 @@ import com.example.storyapp.ui.auth.AuthActivity
 import com.example.storyapp.ui.auth.AuthViewModel
 import com.example.storyapp.ui.auth.AuthViewModelFactory
 import com.example.storyapp.ui.main.MainActivity
+import com.example.storyapp.ui.onboarding.OnBoardingActivity
 
 class SplashActivity : AppCompatActivity() {
 
@@ -41,7 +42,7 @@ class SplashActivity : AppCompatActivity() {
                 if(!it.isNullOrEmpty()){
                     startActivity(Intent(this@SplashActivity, MainActivity::class.java))
                 }else{
-                    startActivity(Intent(this@SplashActivity, AuthActivity::class.java))
+                    startActivity(Intent(this@SplashActivity, OnBoardingActivity::class.java))
                 }
                 finish()
             }

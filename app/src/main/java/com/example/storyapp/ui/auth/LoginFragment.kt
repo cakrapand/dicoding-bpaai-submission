@@ -1,5 +1,7 @@
 package com.example.storyapp.ui.auth
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -69,6 +71,31 @@ class LoginFragment : Fragment() {
                 addToBackStack(null)
                 replace(R.id.frame_container, mRegisterFragment, RegisterFragment::class.java.simpleName)
             }
+        }
+
+        playAnimation()
+    }
+
+    private fun playAnimation(){
+//        ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X, -30f, 30f).apply {
+//            duration = 6000
+//            repeatCount = ObjectAnimator.INFINITE
+//            repeatMode = ObjectAnimator.REVERSE
+//        }.start()
+
+        val tvLogin = ObjectAnimator.ofFloat(binding.tvLogin, View.ALPHA, 1f).setDuration(500)
+        val edLoginEmail = ObjectAnimator.ofFloat(binding.edLoginEmail, View.ALPHA, 1f).setDuration(500)
+        val edLoginPassword = ObjectAnimator.ofFloat(binding.edLoginPassword, View.ALPHA, 1f).setDuration(500)
+        val btnLogin = ObjectAnimator.ofFloat(binding.btnLogin, View.ALPHA, 1f).setDuration(500)
+        val btnMoveRegister = ObjectAnimator.ofFloat(binding.btnMoveRegister, View.ALPHA, 1f).setDuration(500)
+
+        val together = AnimatorSet().apply {
+            playTogether(btnLogin, btnMoveRegister)
+        }
+
+        AnimatorSet().apply {
+            playSequentially(tvLogin, edLoginEmail, edLoginPassword, together)
+            start()
         }
     }
 

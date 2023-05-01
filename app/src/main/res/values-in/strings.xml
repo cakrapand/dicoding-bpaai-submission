@@ -18,7 +18,6 @@
     <string name="logout">Keluar</string>
     <string name="add_story">Tambah Cerita</string>
     <string name="settings">Pengaturan</string>
-    <string name="email_blank">Email tidak boleh kosong</string>
     <string name="email_invalid">Email tidak valid</string>
     <string name="password_invalid">Password minimal 6 karatker</string>
     <string name="register_invalid">Email atau password tidak valid</string>

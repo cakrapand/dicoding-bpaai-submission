@@ -8,6 +8,7 @@
 
     <TextView
         android:id="@+id/tvLogin"
+        android:alpha="0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="324dp"
@@ -18,6 +19,7 @@
 
     <com.example.storyapp.views.EmailEditText
         android:id="@+id/ed_login_email"
+        android:alpha="0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="@+id/tvLogin"
@@ -26,6 +28,7 @@
 
     <com.example.storyapp.views.PasswordEditText
         android:id="@+id/ed_login_password"
+        android:alpha="0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="@+id/ed_login_email"
@@ -34,6 +37,7 @@
 
     <Button
         android:id="@+id/btn_login"
+        android:alpha="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/login"
@@ -44,6 +48,7 @@
 
     <Button
         android:id="@+id/btn_move_register"
+        android:alpha="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/register"

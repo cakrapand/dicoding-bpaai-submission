@@ -1,5 +1,6 @@
 package com.example.storyapp.ui.main
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
@@ -14,6 +15,8 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -58,10 +61,10 @@ class MainActivity : AppCompatActivity() {
                     binding.progrerssBarMain.visibility = View.GONE
                     binding.rvListUser.apply {
                         layoutManager = LinearLayoutManager(this@MainActivity)
-                        adapter = StoryAdapter(result.data) {
+                        adapter = StoryAdapter(result.data) { story, optionsCompat ->
                             val intent = Intent(this@MainActivity, DetailActivity::class.java)
-                            intent.putExtra(DetailActivity.EXTRA_ID, it.id)
-                            startActivity(intent)
+                            intent.putExtra(DetailActivity.EXTRA_ID, story.id)
+                            startActivity(intent, optionsCompat.toBundle())
                         }
                     }
                 }

@@ -1,13 +1,16 @@
 package com.example.storyapp.adapter
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.storyapp.data.remote.response.Story
 import com.example.storyapp.databinding.ItemStoryBinding
 
-class StoryAdapter(private val listStory: List<Story>, private val onClick: (Story) -> Unit) : RecyclerView.Adapter<StoryAdapter.ViewHolder>() {
+class StoryAdapter(private val listStory: List<Story>, private val onClick: (Story, ActivityOptionsCompat) -> Unit) : RecyclerView.Adapter<StoryAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: ItemStoryBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -23,7 +26,13 @@ class StoryAdapter(private val listStory: List<Story>, private val onClick: (Sto
         holder.binding.tvItemDesc.text = listStory[holder.adapterPosition].description
 
         holder.itemView.setOnClickListener{
-            onClick(listStory[holder.adapterPosition])
+            val optionsCompat: ActivityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                holder.itemView.context as Activity,
+                Pair(holder.binding.ivItemPhoto, "photo"),
+                Pair(holder.binding.tvItemName, "name"),
+                Pair(holder.binding.tvItemDesc, "description")
+            )
+            onClick(listStory[holder.adapterPosition], optionsCompat)
         }
     }
 
