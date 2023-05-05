@@ -9,7 +9,6 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -21,7 +20,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.storyapp.R
 import com.example.storyapp.databinding.ActivityAddStoryBinding
-import com.example.storyapp.data.Result
+import com.example.storyapp.data.StoryResult
 import com.example.storyapp.ui.camera.CameraActivity
 import com.example.storyapp.ui.main.MainActivity
 import com.example.storyapp.utils.rotateFile
@@ -75,6 +74,21 @@ class AddStoryActivity : AppCompatActivity() {
         _activityAddStoryBinding = ActivityAddStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupAction()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (!allPermissionsGranted()) {
+                Toast.makeText(this, getString(R.string.allow_permission), Toast.LENGTH_SHORT).show()
+            }else{
+                startCameraX()
+            }
+        }
+    }
+
+    private fun setupAction(){
         binding.btnCamera.setOnClickListener {
             if (!allPermissionsGranted())  ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
             else startCameraX()
@@ -86,17 +100,6 @@ class AddStoryActivity : AppCompatActivity() {
 
         binding.btnAdd.setOnClickListener {
             uploadImage()
-        }
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_CODE_PERMISSIONS) {
-            if (!allPermissionsGranted()) {
-                Toast.makeText(this, getString(R.string.allow_permission), Toast.LENGTH_SHORT).show()
-            }else{
-                startCameraX()
-            }
         }
     }
 
@@ -118,22 +121,21 @@ class AddStoryActivity : AppCompatActivity() {
     }
 
     private fun uploadImage() {
-        val description = binding.edAddDescription.text.toString()
+        val description = binding.edAddDescription.text.toString().trim()
         if (description.isNotBlank() && getFile != null) {
             val file = getFile as File
 
             addStoryViewModel.addStory(description, file).observe(this){
                 when(it){
-                    is Result.Loading -> {
+                    is StoryResult.Loading -> {
                         binding.progrerssBarAdd.visibility = View.VISIBLE
                     }
-                    is Result.Success -> {
+                    is StoryResult.Success -> {
                         binding.progrerssBarAdd.visibility = View.GONE
-                        val intent = Intent()
-                        setResult(MainActivity.RESULT_OK, intent)
+                        setResult(MainActivity.RESULT_OK, Intent())
                         finish()
                     }
-                    is Result.Error -> {
+                    is StoryResult.Error -> {
                         binding.progrerssBarAdd.visibility = View.GONE
                         Toast.makeText(this@AddStoryActivity, it.error, Toast.LENGTH_SHORT).show()
                     }

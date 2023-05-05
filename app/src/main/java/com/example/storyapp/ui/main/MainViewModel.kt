@@ -1,18 +1,16 @@
 package com.example.storyapp.ui.main
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.example.storyapp.data.AuthRepository
 import com.example.storyapp.data.StoryRepository
 import com.example.storyapp.data.remote.response.Story
-import com.example.storyapp.data.Result
-import kotlinx.coroutines.flow.collect
+import com.example.storyapp.data.StoryResult
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val storyRepository: StoryRepository, private val authRepository: AuthRepository) : ViewModel() {
 
-    private val _listStory = MutableLiveData<Result<List<Story>>>()
-    val listStory : LiveData<Result<List<Story>>>
+    private val _listStory = MutableLiveData<StoryResult<List<Story>>>()
+    val listStory : LiveData<StoryResult<List<Story>>>
         get() = _listStory
 
     init {

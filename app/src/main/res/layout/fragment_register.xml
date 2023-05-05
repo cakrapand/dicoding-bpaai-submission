@@ -3,15 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/tvRegister"
-        android:alpha="0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="200dp"
+        android:alpha="0"
         android:text="@string/register"
+        android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,51 +22,51 @@
 
     <com.example.storyapp.views.NameEditText
         android:id="@+id/ed_register_name"
-        android:alpha="0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:alpha="0"
         app:layout_constraintEnd_toEndOf="@+id/tvRegister"
         app:layout_constraintStart_toStartOf="@+id/tvRegister"
         app:layout_constraintTop_toBottomOf="@+id/tvRegister" />
 
     <com.example.storyapp.views.EmailEditText
         android:id="@+id/ed_register_email"
-        android:alpha="0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:alpha="0"
         app:layout_constraintEnd_toEndOf="@+id/ed_register_name"
         app:layout_constraintStart_toStartOf="@+id/ed_register_name"
         app:layout_constraintTop_toBottomOf="@+id/ed_register_name" />
 
     <com.example.storyapp.views.PasswordEditText
         android:id="@+id/ed_register_password"
-        android:alpha="0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:alpha="0"
         app:layout_constraintEnd_toEndOf="@+id/ed_register_email"
         app:layout_constraintStart_toStartOf="@+id/ed_register_email"
         app:layout_constraintTop_toBottomOf="@+id/ed_register_email" />
 
     <Button
         android:id="@+id/btn_register"
-        android:alpha="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:alpha="0"
         android:text="@string/register"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_move_login"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn_move_login"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ed_register_password" />
 
     <Button
         android:id="@+id/btn_move_login"
-        android:alpha="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:alpha="0"
         android:text="@string/login"
-        app:layout_constraintEnd_toStartOf="@+id/btn_register"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_register"
         app:layout_constraintTop_toBottomOf="@+id/ed_register_password" />
 
     <ProgressBar

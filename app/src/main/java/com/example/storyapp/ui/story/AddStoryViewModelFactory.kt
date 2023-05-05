@@ -5,10 +5,8 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.storyapp.data.AuthRepository
 import com.example.storyapp.data.StoryRepository
 import com.example.storyapp.di.Injection
-import com.example.storyapp.ui.main.MainViewModel
 
 class AddStoryViewModelFactory(private val storyRepository: StoryRepository) : ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")

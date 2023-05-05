@@ -3,7 +3,6 @@ package com.example.storyapp.data.remote.retrofit
 import com.example.storyapp.data.remote.response.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.Call
 import retrofit2.http.*
 
 interface ApiService {

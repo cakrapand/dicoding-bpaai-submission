@@ -2,16 +2,25 @@
     <!-- Base application theme. -->
     <style name="Theme.StoryApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/indigo</item>
+        <item name="colorPrimaryVariant">@color/indigo</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondary">@color/indigo</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/lavender</item>
+    </style>
+    <style name="Theme.StoryApp.Card" parent="CardView">
+        <item name="cardBackgroundColor">@color/lavender2</item>
+        <item name="cardCornerRadius">4dp</item>
+    </style>
+    <style name="Theme.StoryApp.Fab" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="tint">@color/white</item>
+        <item name="backgroundTint">@color/indigo</item>
     </style>
     <style name="Theme.StoryApp.AppWidgetContainerParent"
         parent="@android:style/Theme.DeviceDefault">

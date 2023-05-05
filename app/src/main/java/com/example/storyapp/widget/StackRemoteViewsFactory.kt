@@ -2,10 +2,7 @@ package com.example.storyapp.widget
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Binder
-import android.util.Log
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import androidx.core.os.bundleOf
@@ -13,7 +10,6 @@ import com.example.storyapp.R
 import com.example.storyapp.data.local.room.StoryDatabase
 import com.example.storyapp.data.remote.response.Story
 import com.example.storyapp.utils.getBitMap
-import java.net.URL
 
 internal class StackRemoteViewsFactory(private val mContext: Context) : RemoteViewsService.RemoteViewsFactory {
 

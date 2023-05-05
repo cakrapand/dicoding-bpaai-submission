@@ -2,17 +2,15 @@ package com.example.storyapp.ui.splash
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.widget.ImageView
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.storyapp.R
-import com.example.storyapp.ui.auth.AuthActivity
 import com.example.storyapp.ui.auth.AuthViewModel
 import com.example.storyapp.ui.auth.AuthViewModelFactory
 import com.example.storyapp.ui.main.MainActivity
@@ -31,8 +29,6 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         supportActionBar?.hide()
-//        val imageView: ImageView = findViewById(R.id.image_view)
-//        imageView.setImageResource(R.mipmap.ic_launcher_dark_foreground)
     }
 
     override fun onResume() {

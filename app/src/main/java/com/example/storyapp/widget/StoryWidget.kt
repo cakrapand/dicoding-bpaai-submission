@@ -10,7 +10,6 @@ import android.widget.RemoteViews
 import android.widget.Toast
 import androidx.core.net.toUri
 import com.example.storyapp.R
-import com.example.storyapp.ui.detail.DetailActivity
 
 /**
  * Implementation of App Widget functionality.
@@ -31,8 +30,6 @@ class StoryWidget : AppWidgetProvider() {
         // Enter relevant functionality for when the last widget is disabled
     }
 
-    //3 Kode di bwh akan dijalankan ketika widget ditekan. Seperti pada latihan sebelumnya, percabangan digunakan untuk membedakan action yang terjadi.
-    // Kita dapat mengambil data action tersebut dengan memanfaatkan extra dari sebuah intent.
     override fun onReceive(context: Context?, intent: Intent?) {
         super.onReceive(context, intent)
         if (intent?.action != null) {
@@ -53,13 +50,10 @@ class StoryWidget : AppWidgetProvider() {
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
             intent.data = intent.toUri(Intent.URI_INTENT_SCHEME).toUri()
 
-
-            // 1 Kita memasang RemoteAdapter ke dalam widget dengan menggunakan obyek Intent dan nilai id dari RemoteView yaitu stack_view.
             val views = RemoteViews(context.packageName, R.layout.story_widget)
             views.setRemoteAdapter(R.id.stack_view, intent)
             views.setEmptyView(R.id.stack_view, R.id.empty_view)
 
-            // 2 Kita menjalankan getBroadcast() untuk melakukan proses broadcast ketika salah satu widget ditekan.
             val toastIntent = Intent(context, StoryWidget::class.java)
             toastIntent.action = TOAST_ACTION
             toastIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)

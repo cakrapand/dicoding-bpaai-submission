@@ -17,9 +17,8 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import com.example.storyapp.R
-import com.example.storyapp.data.Result
+import com.example.storyapp.data.StoryResult
 import com.example.storyapp.databinding.FragmentRegisterBinding
-import com.google.android.material.snackbar.Snackbar
 
 class RegisterFragment : Fragment() {
 
@@ -41,41 +40,11 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnRegister.setOnClickListener {
-            val name = binding.edRegisterName.text.toString()
-            val email = binding.edRegisterEmail.text.toString()
-            val password = binding.edRegisterPassword.text.toString()
-            if(Patterns.EMAIL_ADDRESS.matcher(email).matches() && password.length > 6){
-                binding.apply {
-                    edRegisterName.onEditorAction(EditorInfo.IME_ACTION_DONE)
-                    edRegisterEmail.onEditorAction(EditorInfo.IME_ACTION_DONE)
-                    edRegisterPassword.onEditorAction(EditorInfo.IME_ACTION_DONE)
-                }
-                authViewModel.register(name, email, password).observe(requireActivity()){ result ->
-                    when(result){
-                        is Result.Loading ->{
-                            binding.progrerssBarRegister.visibility = View.VISIBLE
-                        }
-                        is Result.Success ->{
-                            binding.progrerssBarRegister.visibility = View.GONE
-                            moveToLogin()
-                            Toast.makeText(requireActivity(), getString(R.string.register_success), Toast.LENGTH_SHORT).show()
-                        }
-                        is Result.Error ->{
-                            binding.progrerssBarRegister.visibility = View.GONE
-                            Toast.makeText(requireActivity(), result.error, Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
-            }else{
-                Toast.makeText(requireActivity(), getString(R.string.register_invalid), Toast.LENGTH_SHORT).show()
-            }
-        }
-        binding.btnMoveLogin.setOnClickListener { moveToLogin()}
+        setupAction()
         playAnimation()
     }
 
-    fun moveToLogin(){
+    private fun moveToLogin(){
         val mLoginFragment = LoginFragment()
         val mFragmentManager = parentFragmentManager
         mFragmentManager.popBackStack()
@@ -84,13 +53,41 @@ class RegisterFragment : Fragment() {
         }
     }
 
-    private fun playAnimation(){
-//        ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_X, -30f, 30f).apply {
-//            duration = 6000
-//            repeatCount = ObjectAnimator.INFINITE
-//            repeatMode = ObjectAnimator.REVERSE
-//        }.start()
+    private fun setupAction(){
+        binding.btnRegister.setOnClickListener {
+            val name = binding.edRegisterName.text.toString().trim()
+            val email = binding.edRegisterEmail.text.toString().trim()
+            val password = binding.edRegisterPassword.text.toString()
+            if(Patterns.EMAIL_ADDRESS.matcher(email).matches() && password.length >= 8){
+                binding.apply {
+                    edRegisterName.onEditorAction(EditorInfo.IME_ACTION_DONE)
+                    edRegisterEmail.onEditorAction(EditorInfo.IME_ACTION_DONE)
+                    edRegisterPassword.onEditorAction(EditorInfo.IME_ACTION_DONE)
+                }
+                authViewModel.register(name, email, password).observe(requireActivity()){ result ->
+                    when(result){
+                        is StoryResult.Loading ->{
+                            binding.progrerssBarRegister.visibility = View.VISIBLE
+                        }
+                        is StoryResult.Success ->{
+                            binding.progrerssBarRegister.visibility = View.GONE
+                            moveToLogin()
+                            Toast.makeText(requireActivity(), getString(R.string.register_success), Toast.LENGTH_SHORT).show()
+                        }
+                        is StoryResult.Error ->{
+                            binding.progrerssBarRegister.visibility = View.GONE
+                            Toast.makeText(requireActivity(), result.error, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }else{
+                Toast.makeText(requireActivity(), getString(R.string.auth_invalid), Toast.LENGTH_SHORT).show()
+            }
+        }
+        binding.btnMoveLogin.setOnClickListener { moveToLogin() }
+    }
 
+    private fun playAnimation(){
         val tvRegister = ObjectAnimator.ofFloat(binding.tvRegister, View.ALPHA, 1f).setDuration(500)
         val edRegisterName = ObjectAnimator.ofFloat(binding.edRegisterName, View.ALPHA, 1f).setDuration(500)
         val edRegisterEmail = ObjectAnimator.ofFloat(binding.edRegisterEmail, View.ALPHA, 1f).setDuration(500)

@@ -9,7 +9,6 @@ import android.graphics.Matrix
 import android.net.Uri
 import android.os.Environment
 import android.util.Log
-import androidx.room.TypeConverter
 import com.example.storyapp.R
 import java.io.*
 import java.net.URL
@@ -80,12 +79,12 @@ fun reduceFileImage(file: File): File {
 }
 
 fun getBitMap(url: String): Bitmap?{
-    try {
+    return try {
         val urlx = URL(url)
         val image = BitmapFactory.decodeStream(urlx.openConnection().getInputStream())
-        return image
+        image
     } catch (e: IOException) {
-        Log.e("MediaUtility", "getBitMap: Error getting image bitmap", )
-        return null
+        Log.e("MediaUtility", "getBitMap: Error getting image bitmap")
+        null
     }
 }

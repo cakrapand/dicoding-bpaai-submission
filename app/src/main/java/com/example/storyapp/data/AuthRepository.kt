@@ -10,42 +10,37 @@ class AuthRepository private constructor(private val apiService: ApiService, pri
 
     fun isLogin(): Flow<String?> = flow {emitAll(authPreferences.getToken())}
 
-    fun login(email: String, password: String): Flow<Result<String>> = flow {
-        emit(Result.Loading)
+    fun login(email: String, password: String): Flow<StoryResult<String>> = flow {
+        emit(StoryResult.Loading)
         try {
             val response = apiService.login(email, password)
             val token = response.loginResult.token
             authPreferences.saveToken(token)
-            emit(Result.Success(response.message))
+            emit(StoryResult.Success(response.message))
         }catch (e: Exception){
             Log.d("AuthRepository", "login: ${e.message.toString()}")
-            emit(Result.Error(e.message.toString()))
+            emit(StoryResult.Error(e.message.toString()))
         }
     }
 
-    fun register(name: String, email: String, password: String): Flow<Result<String>> = flow {
-        emit(Result.Loading)
+    fun register(name: String, email: String, password: String): Flow<StoryResult<String>> = flow {
+        emit(StoryResult.Loading)
         try {
             val response = apiService.register(name, email, password)
-            emit(Result.Success(response.message))
+            emit(StoryResult.Success(response.message))
         }catch (e: Exception){
             Log.d("AuthRepository", "register: ${e.message.toString()}")
-            emit(Result.Error(e.message.toString()))
+            emit(StoryResult.Error(e.message.toString()))
         }
     }
 
-//    suspend fun logout(){
-//        authPreferences.logout()
-//    }
-
-    fun logout(): Flow<Result<String>> = flow {
-        emit(Result.Loading)
+    fun logout(): Flow<StoryResult<String>> = flow {
+        emit(StoryResult.Loading)
         authPreferences.logout()
-        emit(Result.Success("success"))
+        emit(StoryResult.Success("success"))
     }
 
     companion object {
-        private val TOKEN_KEY = stringPreferencesKey("token")
         @Volatile
         private var instance: AuthRepository? = null
         fun getInstance(

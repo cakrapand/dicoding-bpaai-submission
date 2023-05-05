@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.storyapp.data.AuthRepository
 import com.example.storyapp.data.StoryRepository
 import com.example.storyapp.di.Injection
-import com.example.storyapp.ui.auth.AuthViewModel
 
 class MainViewModelFactory(private val storyRepository: StoryRepository, private val authRepository: AuthRepository) : ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")

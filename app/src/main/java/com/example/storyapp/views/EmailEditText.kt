@@ -1,7 +1,6 @@
 package com.example.storyapp.views
 
 import android.content.Context
-import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.text.TextWatcher
@@ -15,6 +14,7 @@ import com.example.storyapp.R
 class EmailEditText : AppCompatEditText {
 
     private lateinit var emailImage: Drawable
+    var isRegister = true
 
     constructor(context: Context) : super(context) {
         init()
@@ -40,7 +40,7 @@ class EmailEditText : AppCompatEditText {
 
             }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(!s.isNullOrEmpty() && !Patterns.EMAIL_ADDRESS.matcher(s).matches()){
+                if(!s.isNullOrEmpty() && !Patterns.EMAIL_ADDRESS.matcher(s.trim()).matches() && isRegister){
                     error = context.getString(R.string.email_invalid)
                 }
             }

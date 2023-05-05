@@ -1,25 +1,16 @@
 package com.example.storyapp.ui.detail
 
 import android.content.Context
-import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.example.storyapp.R
-import com.example.storyapp.adapter.StoryAdapter
-import com.example.storyapp.data.Result
+import com.example.storyapp.data.StoryResult
 import com.example.storyapp.databinding.ActivityDetailBinding
-import com.example.storyapp.databinding.ActivityMainBinding
-import com.example.storyapp.ui.main.MainViewModel
-import com.example.storyapp.ui.main.MainViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 
 class DetailActivity : AppCompatActivity() {
@@ -45,12 +36,12 @@ class DetailActivity : AppCompatActivity() {
             detailViewModel.getDetailStory(id)
         }
 
-        detailViewModel.story.observe(this){ result ->
+        detailViewModel.story.observe(this){result ->
             when(result){
-                is Result.Loading ->{
+                is StoryResult.Loading ->{
                     binding.progressBarDetail.visibility = View.VISIBLE
                 }
-                is Result.Success -> {
+                is StoryResult.Success -> {
                     binding.progressBarDetail.visibility = View.GONE
                     Glide.with(this)
                         .load(result.data.photoUrl)
@@ -58,7 +49,7 @@ class DetailActivity : AppCompatActivity() {
                     binding.tvDetailName.text = result.data.name
                     binding.tvDetailDescription.text = result.data.description
                 }
-                is Result.Error ->{
+                is StoryResult.Error ->{
                     binding.progressBarDetail.visibility = View.GONE
                     Snackbar.make(binding.root, result.error, Snackbar.LENGTH_SHORT).show()
                 }

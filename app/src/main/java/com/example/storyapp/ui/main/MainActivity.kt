@@ -1,34 +1,28 @@
 package com.example.storyapp.ui.main
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.core.app.ActivityOptionsCompat
-import androidx.core.util.Pair
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.storyapp.R
 import com.example.storyapp.adapter.StoryAdapter
-import com.example.storyapp.data.Result
+import com.example.storyapp.data.StoryResult
 import com.example.storyapp.databinding.ActivityMainBinding
 import com.example.storyapp.ui.auth.AuthActivity
 import com.example.storyapp.ui.detail.DetailActivity
 import com.example.storyapp.ui.story.AddStoryActivity
-import java.io.File
 
 class MainActivity : AppCompatActivity() {
 
@@ -54,11 +48,12 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel.listStory.observe(this){ result ->
             when(result){
-                is Result.Loading ->{
+                is StoryResult.Loading ->{
                     binding.progrerssBarMain.visibility = View.VISIBLE
                 }
-                is Result.Success -> {
+                is StoryResult.Success -> {
                     binding.progrerssBarMain.visibility = View.GONE
+                    Log.i("TEST", "${result.data}")
                     binding.rvListUser.apply {
                         layoutManager = LinearLayoutManager(this@MainActivity)
                         adapter = StoryAdapter(result.data) { story, optionsCompat ->
@@ -68,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
-                is Result.Error ->{
+                is StoryResult.Error ->{
                     binding.progrerssBarMain.visibility = View.GONE
                     Toast.makeText(this@MainActivity, result.error, Toast.LENGTH_SHORT).show()
                 }
@@ -95,16 +90,15 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.logout -> {
-//                mainViewModel.logout()
                 mainViewModel.logout().observe(this){
                     when(it){
-                        is Result.Loading -> {
+                        is StoryResult.Loading -> {
                             binding.progrerssBarMain.visibility = View.VISIBLE
                         }
-                        is Result.Success -> {
+                        is StoryResult.Success -> {
                             binding.progrerssBarMain.visibility = View.GONE
                         }
-                        is Result.Error -> {
+                        is StoryResult.Error -> {
                             binding.progrerssBarMain.visibility = View.GONE
                             Toast.makeText(this@MainActivity, getString(R.string.logout_error), Toast.LENGTH_SHORT).show()
                         }
