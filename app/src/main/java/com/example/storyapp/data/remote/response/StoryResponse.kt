@@ -1,8 +1,5 @@
 package com.example.storyapp.data.remote.response
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 data class GetAllStoriesResponse(
@@ -29,11 +26,9 @@ data class DetailStoryResponse(
 	val story: Story
 )
 
-@Entity(tableName = "Story")
 data class Story(
 
-	@field:ColumnInfo(name = "Id")
-	@field:PrimaryKey
+
 	@field:SerializedName("id")
 	val id: String,
 
@@ -43,7 +38,6 @@ data class Story(
 	@field:SerializedName("description")
 	val description: String,
 
-	@field:ColumnInfo(name = "PhotoUrl")
 	@field:SerializedName("photoUrl")
 	val photoUrl: String,
 

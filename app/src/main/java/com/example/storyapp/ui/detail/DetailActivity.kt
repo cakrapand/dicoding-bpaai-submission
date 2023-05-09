@@ -1,6 +1,7 @@
 package com.example.storyapp.ui.detail
 
 import android.content.Context
+import android.location.Geocoder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -12,6 +13,8 @@ import com.bumptech.glide.Glide
 import com.example.storyapp.data.StoryResult
 import com.example.storyapp.databinding.ActivityDetailBinding
 import com.google.android.material.snackbar.Snackbar
+import java.io.IOException
+import java.util.*
 
 class DetailActivity : AppCompatActivity() {
 
@@ -46,8 +49,12 @@ class DetailActivity : AppCompatActivity() {
                     Glide.with(this)
                         .load(result.data.photoUrl)
                         .into(binding.ivDetailPhoto)
+                    binding.apply {
+                        tvDetailLocation.text = getAddressName(result.data.lat, result.data.lon)
+                        tvDetailName.text = result.data.name
+                        tvDetailDescription.text = result.data.description
+                    }
                     binding.tvDetailName.text = result.data.name
-                    binding.tvDetailDescription.text = result.data.description
                 }
                 is StoryResult.Error ->{
                     binding.progressBarDetail.visibility = View.GONE
@@ -55,6 +62,20 @@ class DetailActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun getAddressName(lat: Double, lon: Double): String? {
+        var addressName: String? = null
+        val geocoder = Geocoder(this, Locale.getDefault())
+        try {
+            val list = geocoder.getFromLocation(lat, lon, 1)
+            if (list != null && list.size != 0) {
+                addressName = list[0].subAdminArea
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return addressName
     }
 
     override fun onDestroy() {

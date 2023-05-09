@@ -4,15 +4,17 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.storyapp.data.remote.response.Story
+import com.example.storyapp.data.local.entity.RemoteKeys
+import com.example.storyapp.data.local.entity.StoryEntity
 
-@Database(entities = [Story::class], version = 1, exportSchema = false)
+@Database(entities = [StoryEntity::class, RemoteKeys::class], version = 1, exportSchema = false)
 abstract class StoryDatabase : RoomDatabase() {
     abstract fun storyDao(): StoryDao
+    abstract fun remoteKeysDao(): RemoteKeysDao
 
     companion object {
         @Volatile
-        private var instance: StoryDatabase? = null
+        var instance: StoryDatabase? = null
         fun getInstance(context: Context): StoryDatabase =
             instance ?: synchronized(this) {
                 instance ?: Room.databaseBuilder(

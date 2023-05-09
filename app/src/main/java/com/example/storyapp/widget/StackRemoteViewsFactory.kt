@@ -7,13 +7,13 @@ import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import androidx.core.os.bundleOf
 import com.example.storyapp.R
+import com.example.storyapp.data.local.entity.StoryEntity
 import com.example.storyapp.data.local.room.StoryDatabase
-import com.example.storyapp.data.remote.response.Story
 import com.example.storyapp.utils.getBitMap
 
 internal class StackRemoteViewsFactory(private val mContext: Context) : RemoteViewsService.RemoteViewsFactory {
 
-    private val mWidgetItems = mutableListOf<Story>()
+    private val mWidgetItems = mutableListOf<StoryEntity>()
     private val database = StoryDatabase.getInstance(mContext)
     private val dao = database.storyDao()
 
@@ -23,7 +23,7 @@ internal class StackRemoteViewsFactory(private val mContext: Context) : RemoteVi
 
     override fun onDataSetChanged() {
         val identityToken = Binder.clearCallingIdentity()
-        val stories = dao.getStories()
+        val stories = dao.getListStories()
 
         mWidgetItems.addAll(stories)
         Binder.restoreCallingIdentity(identityToken)

@@ -21,17 +21,17 @@
             android:id="@+id/iv_item_photo"
             android:layout_width="0dp"
             android:layout_height="130dp"
+            android:background="@color/purple_200"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars"
-            android:background="@color/purple_200"/>
+            tools:src="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/tv_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_margin="8dp"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,10 +42,9 @@
             android:id="@+id/tv_item_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:textSize="15sp"
             android:maxLines="3"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_item_name"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_name"
             tools:text="Desc" />
 

@@ -7,5 +7,5 @@ import java.io.File
 
 class AddStoryViewModel(private val storyRepository: StoryRepository) : ViewModel() {
 
-    fun addStory(description: String, file: File) = storyRepository.addStory(description, file).asLiveData()
+    fun addStory(description: String, file: File, lat: Double?, lon: Double?) = storyRepository.addStory(description, file, lat, lon).asLiveData()
 }

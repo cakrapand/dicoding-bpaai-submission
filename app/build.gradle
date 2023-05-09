@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
@@ -41,11 +42,13 @@ dependencies {
 
     implementation 'androidx.core:core-ktx:1.10.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    //Testing
+    testImplementation "junit:junit:4.13.2"
+    androidTestImplementation "androidx.test.ext:junit:1.1.3"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.4.0"
 
     // Retrofit and Inceptor
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -76,5 +79,30 @@ dependencies {
     implementation "androidx.room:room-ktx:2.5.1"
     kapt "androidx.room:room-compiler:2.6.0-alpha01"
 
+    //Paging 3
+    implementation "androidx.paging:paging-runtime-ktx:3.1.1" //Paging 3
+    implementation 'androidx.room:room-paging:2.6.0-alpha01' //Paging for Room
 
+    //Spesial Testing
+    testImplementation "androidx.arch.core:core-testing:2.1.0" // InstantTaskExecutorRule
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0" // InstantTaskExecutorRule
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1" //TestCoroutineDispatcher
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1" //TestCoroutineDispatcher
+//    debugImplementation "androidx.fragment:fragment-testing:1.4.1" //launchFragmentInContainer
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1' //RecyclerViewActions
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.5.1' //RecyclerViewActions
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.4.0'//IntentsTestRule
+
+    //Mockito
+    testImplementation 'org.mockito:mockito-core:4.4.0'
+    testImplementation 'org.mockito:mockito-inline:4.4.0'
+
+    //mock web server
+    androidTestImplementation "com.squareup.okhttp3:mockwebserver:4.9.3"
+    androidTestImplementation "com.squareup.okhttp3:okhttp-tls:4.9.3"
+    implementation 'androidx.test.espresso:espresso-idling-resource:3.5.1'
+
+    // Fused Location
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
 }

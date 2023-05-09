@@ -2,31 +2,32 @@ package com.example.storyapp.ui.main
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.storyapp.R
+import com.example.storyapp.adapter.LoadingStateAdapter
 import com.example.storyapp.adapter.StoryAdapter
 import com.example.storyapp.data.StoryResult
 import com.example.storyapp.databinding.ActivityMainBinding
+import com.example.storyapp.maps.MapsActivity
 import com.example.storyapp.ui.auth.AuthActivity
 import com.example.storyapp.ui.detail.DetailActivity
 import com.example.storyapp.ui.story.AddStoryActivity
 
 class MainActivity : AppCompatActivity() {
 
-    private var _activityMainBinding : ActivityMainBinding? = null
+    private var _activityMainBinding: ActivityMainBinding? = null
     private val binding get() = _activityMainBinding!!
 
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "auth")
@@ -35,44 +36,47 @@ class MainActivity : AppCompatActivity() {
         MainViewModelFactory.getInstance(application, dataStore)
     }
 
-    private val launcherAddStoryActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if (it.resultCode == RESULT_OK) {
-            mainViewModel.getAllStories()
+    private val launcherAddStoryActivity =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == RESULT_OK) {
+                mainViewModel.getAllStories()
+            }
         }
-    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         _activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        mainViewModel.listStory.observe(this){ result ->
-            when(result){
-                is StoryResult.Loading ->{
-                    binding.progrerssBarMain.visibility = View.VISIBLE
-                }
-                is StoryResult.Success -> {
-                    binding.progrerssBarMain.visibility = View.GONE
-                    Log.i("TEST", "${result.data}")
-                    binding.rvListUser.apply {
-                        layoutManager = LinearLayoutManager(this@MainActivity)
-                        adapter = StoryAdapter(result.data) { story, optionsCompat ->
-                            val intent = Intent(this@MainActivity, DetailActivity::class.java)
-                            intent.putExtra(DetailActivity.EXTRA_ID, story.id)
-                            startActivity(intent, optionsCompat.toBundle())
-                        }
-                    }
-                }
-                is StoryResult.Error ->{
-                    binding.progrerssBarMain.visibility = View.GONE
-                    Toast.makeText(this@MainActivity, result.error, Toast.LENGTH_SHORT).show()
-                }
-            }
+        val storyAdapter = StoryAdapter { story, optionsCompat ->
+            val intent = Intent(this@MainActivity, DetailActivity::class.java)
+            intent.putExtra(DetailActivity.EXTRA_ID, story.id)
+            startActivity(intent, optionsCompat.toBundle())
         }
 
-        mainViewModel.isLogin().observe(this){
-            if(it.isNullOrEmpty()){
-                Toast.makeText(this@MainActivity, getString(R.string.logged_out), Toast.LENGTH_SHORT).show()
+        binding.rvListUser.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter =
+                storyAdapter.withLoadStateFooter(footer = LoadingStateAdapter { storyAdapter.retry() })
+        }
+
+        mainViewModel.listStory.observe(this) {
+            storyAdapter.submitData(lifecycle, it)
+            if (it == null) Toast.makeText(
+                this@MainActivity,
+                getString(R.string.data_empty),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
+        mainViewModel.isLogin().observe(this) {
+            if (it.isNullOrEmpty()) {
+                Toast.makeText(
+                    this@MainActivity,
+                    getString(R.string.logged_out),
+                    Toast.LENGTH_SHORT
+                ).show()
                 startActivity(Intent(this, AuthActivity::class.java))
                 finish()
             }
@@ -80,6 +84,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnAddStory.setOnClickListener {
             launcherAddStoryActivity.launch(Intent(this, AddStoryActivity::class.java))
+        }
+
+        binding.btnMaps.setOnClickListener {
+            startActivity(Intent(this, MapsActivity::class.java))
         }
     }
 
@@ -90,8 +98,8 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.logout -> {
-                mainViewModel.logout().observe(this){
-                    when(it){
+                mainViewModel.logout().observe(this) {
+                    when (it) {
                         is StoryResult.Loading -> {
                             binding.progrerssBarMain.visibility = View.VISIBLE
                         }
@@ -100,7 +108,11 @@ class MainActivity : AppCompatActivity() {
                         }
                         is StoryResult.Error -> {
                             binding.progrerssBarMain.visibility = View.GONE
-                            Toast.makeText(this@MainActivity, getString(R.string.logout_error), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this@MainActivity,
+                                getString(R.string.logout_error),
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 }
@@ -120,7 +132,7 @@ class MainActivity : AppCompatActivity() {
         _activityMainBinding = null
     }
 
-    companion object{
+    companion object {
         const val RESULT_OK = 110
     }
 }

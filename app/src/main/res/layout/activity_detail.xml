@@ -22,26 +22,36 @@
             tools:src="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/tv_detail_name"
-            android:transitionName="name"
+            android:id="@+id/tv_detail_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:textSize="25sp"
-            android:textStyle="bold"
+            android:layout_marginStart="8dp"
+            android:textSize="15sp"
+            android:textStyle="italic"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_detail_photo"
+            tools:text="Location" />
+
+        <TextView
+            android:id="@+id/tv_detail_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:transitionName="name"
+            app:layout_constraintStart_toStartOf="@+id/tv_detail_location"
+            app:layout_constraintTop_toBottomOf="@+id/tv_detail_location"
             tools:text="Name" />
 
         <TextView
             android:id="@+id/tv_detail_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginBottom="8dp"
             android:textSize="20sp"
             android:transitionName="description"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_detail_name"
             app:layout_constraintTop_toBottomOf="@+id/tv_detail_name"
             tools:text="Desc" />
 

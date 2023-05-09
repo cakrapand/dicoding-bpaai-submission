@@ -15,6 +15,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import com.example.storyapp.databinding.ActivityCameraBinding
 import com.example.storyapp.ui.story.AddStoryActivity
+import com.example.storyapp.utils.EspressoIdlingResource
 import com.example.storyapp.utils.createFile
 
 class CameraActivity : AppCompatActivity() {
@@ -43,12 +44,14 @@ class CameraActivity : AppCompatActivity() {
     }
 
     private fun takePhoto() {
+        EspressoIdlingResource.increment()
         val imageCapture = imageCapture ?: return
         val photoFile = createFile(application)
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
         imageCapture.takePicture(outputOptions, ContextCompat.getMainExecutor(this), object : ImageCapture.OnImageSavedCallback {
             override fun onError(exc: ImageCaptureException) {
                 Toast.makeText(this@CameraActivity, "Failed to take a picture.", Toast.LENGTH_SHORT).show()
+                EspressoIdlingResource.decrement()
             }
             override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                 val intent = Intent()
@@ -56,6 +59,7 @@ class CameraActivity : AppCompatActivity() {
                 intent.putExtra("isBackCamera", cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA)
                 setResult(AddStoryActivity.CAMERA_X_RESULT, intent)
                 finish()
+                EspressoIdlingResource.decrement()
             }
         }
         )

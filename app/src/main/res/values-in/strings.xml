@@ -27,8 +27,13 @@
     <string name="login_success">Behasil masuk</string>
     <string name="register_success">Berhasil daftar, silakan masuk!</string>
     <string name="story_invalid">Story dan deskripsi tidak boleh kosong</string>
-    <string name="allow_permission">Tolong berikan izin kamera di settings</string>
+    <string name="allow_permission">Tolong berikan izin di settings untuk menggunakan fitur ini</string>
     <string name="description_menu1">StoryApp adalah aplikasi untuk berbagi cerita sesama rekan Dicoding sekaligus tugas submission course Belajar Pengembangan Aplikasi Android Intermediate</string>
     <string name="description_menu2">Tunggu apa lagi? Masuk atau daftar untuk berbagi cerita</string>
     <string name="start">Mulai</string>
+    <string name="retry">Ulang</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="upload_location">Unggah lokasi saat ini?</string>
+    <string name="location_error">Lokasi tidak ditemukan. Coba lagi</string>
+    <string name="data_empty">Data kosong</string>
 </resources>

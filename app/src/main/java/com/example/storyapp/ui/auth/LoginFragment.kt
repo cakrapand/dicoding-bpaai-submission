@@ -17,7 +17,6 @@ import androidx.fragment.app.commit
 import com.example.storyapp.R
 import com.example.storyapp.databinding.FragmentLoginBinding
 import com.example.storyapp.data.StoryResult
-import com.google.android.material.snackbar.Snackbar
 
 class LoginFragment : Fragment() {
 
